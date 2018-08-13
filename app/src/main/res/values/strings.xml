@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Web View App</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="signed_out">Signed out</string>
+    <string name="login_name">Username</string>
+    <string name="password">Password</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="login_button">Login</string>
+
+</resources>

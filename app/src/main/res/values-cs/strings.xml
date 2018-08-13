@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="signed_out">Odhlášen</string>
+    <string name="login_name">Přihlašovací jméno</string>
+    <string name="password">Heslo</string>
+
+    <string name="sign_out">Odhásit se</string>
+    <string name="disconnect">Disconnect</string>
+
+    <string name="login_button">Přihlásit se</string>
+
+</resources>
