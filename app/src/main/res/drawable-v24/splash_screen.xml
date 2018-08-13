@@ -16,7 +16,7 @@
 
     <bitmap
         android:gravity="center"
-        android:src="@drawable/ic_ucs_logo2"
+        android:src="@drawable/firewatch_splash"
         android:layout_alignParentTop="true"
         android:scaleType="center"
         />

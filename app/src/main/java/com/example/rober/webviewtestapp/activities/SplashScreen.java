@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+
+import com.example.rober.webviewtestapp.tools.MyApplication;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.firebase.database.DataSnapshot;
@@ -23,14 +25,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
-import com.gpstracker.unicornsystems.eu.gpstracker.MyApplication;
-import com.gpstracker.unicornsystems.eu.gpstracker.R;
-import com.gpstracker.unicornsystems.eu.gpstracker.SHA256Hash;
-import com.gpstracker.unicornsystems.eu.gpstracker.data_clases.LatLngDatabase;
-import com.gpstracker.unicornsystems.eu.gpstracker.data_clases.RunContentProvider;
-
-import static com.google.android.gms.wearable.DataMap.TAG;
 
 //todo musel som vyhodit test fairy bo bez pripojenia PC na internet mi tato metoda vyhadzovala error
 //import com.testfairy.TestFairy;
@@ -49,19 +43,6 @@ public class SplashScreen extends Activity {
     private String mPassword;
     private String myHash;
 
-
-
-    //firebase storage variables
-    private StorageReference spaceRef;
-    private String mySringOfLatLongFromFirebaseJson;
-
-    //firebase database variables
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference myRef;
-
-    //google analytics
-    public Tracker mTracker;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,79 +50,61 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.activity_splash);
         Log.i("MyMessageOnCreate", "now the app started and splash screen shows itself for 3 seconds");
 
-        // google analytics
-        // Obtain the shared Tracker instance. google analytics
-        MyApplication application = (MyApplication) getApplication();
-        mTracker = application.getDefaultTracker();
-//        mTracker.setAppId("UA-85273203-1");
-//        mTracker.set("&uid", "UA-85273203-1");
 
-        //firebase implementation
-        mDatabase = FirebaseDatabase.getInstance();
-        myRef = mDatabase.getReference();
-
-
-        //from previous storage imoplementation of firebase deprecated
-//        FirebaseStorage storage = FirebaseStorage.getInstance();
-//        StorageReference storageRef = storage.getReferenceFromUrl("gs://gpstracker-646ed.appspot.com");
-//        spaceRef = storageRef.child("myDataBaseOfRuns.txt");
-
-
-
-        //check if permalogin was enabled and user is alredy logged in - shared preferences contains username and password
-        SharedPreferences prefs = getSharedPreferences(MyApplication.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        if ((prefs.contains("username")) && (prefs.contains("pass"))) {
-            //if permalogin is enabled then log into dashboard if not then show login screen
-            // get data from shared preferences username and pass - neccesary for hash
-            mUsername = prefs.getString("username", "");
-            mPassword = prefs.getString("pass", "");
-            myHash = SHA256Hash.sha256(mUsername + mPassword);
-
-            //check for internet connection
-            if (isOnline()) {
-                retrieveHashDataFromDB();
-            } else {
-                //if no internet connection then show snackbar and inform the user that database is not synchronized.
-                Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), getString(R.string.internet_connection_failed), Snackbar.LENGTH_INDEFINITE);
-                View snackbarView = snackbar.getView();
-                TextView snackbarTextView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                snackbarTextView.setTextColor(Color.RED);
-                // Changing snackbar text size
-                snackbarTextView.setTextSize(20f);
-                // Changing snackbar button-text color
-                snackbar.setActionTextColor(Color.RED);
-
-                snackbar.setAction("OK", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Snackbar snackbar1 = Snackbar.make(findViewById(R.id.coordinatorLayout), getString(R.string.data_not_synchronyzed), Snackbar.LENGTH_SHORT);
-                        View snackbarView = snackbar1.getView();
-                        TextView snackbarTextView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                        snackbarTextView.setTextColor(ContextCompat.getColor(SplashScreen.this, R.color.colorAccent));
-                        // Changing snackbar text size
-                        snackbarTextView.setTextSize(20f);
-                        snackbar1.show();
-
-                        //start dashboard
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startDashboardActivity();                                }
-                        }, 2000);
-
-
-                    }
-                });
-
-                snackbar.show();
-            }
-
-        } else {
-            //if permalogin not activated or if shared preferences not contains username and password
-            //start login
-            startLoginActivity();
-        }
+//        //check if permalogin was enabled and user is alredy logged in - shared preferences contains username and password
+//        SharedPreferences prefs = getSharedPreferences(MyApplication.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
+//        if ((prefs.contains("username")) && (prefs.contains("pass"))) {
+//            //if permalogin is enabled then log into dashboard if not then show login screen
+//            // get data from shared preferences username and pass - neccesary for hash
+//            mUsername = prefs.getString("username", "");
+//            mPassword = prefs.getString("pass", "");
+//            myHash = SHA256Hash.sha256(mUsername + mPassword);
+//
+//            //check for internet connection
+//            if (isOnline()) {
+//                retrieveHashDataFromDB();
+//            } else {
+//                //if no internet connection then show snackbar and inform the user that database is not synchronized.
+//                Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), getString(R.string.internet_connection_failed), Snackbar.LENGTH_INDEFINITE);
+//                View snackbarView = snackbar.getView();
+//                TextView snackbarTextView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+//                snackbarTextView.setTextColor(Color.RED);
+//                // Changing snackbar text size
+//                snackbarTextView.setTextSize(20f);
+//                // Changing snackbar button-text color
+//                snackbar.setActionTextColor(Color.RED);
+//
+//                snackbar.setAction("OK", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Snackbar snackbar1 = Snackbar.make(findViewById(R.id.coordinatorLayout), getString(R.string.data_not_synchronyzed), Snackbar.LENGTH_SHORT);
+//                        View snackbarView = snackbar1.getView();
+//                        TextView snackbarTextView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+//                        snackbarTextView.setTextColor(ContextCompat.getColor(SplashScreen.this, R.color.colorAccent));
+//                        // Changing snackbar text size
+//                        snackbarTextView.setTextSize(20f);
+//                        snackbar1.show();
+//
+//                        //start dashboard
+//                        Handler handler = new Handler();
+//                        handler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                startDashboardActivity();                                }
+//                        }, 2000);
+//
+//
+//                    }
+//                });
+//
+//                snackbar.show();
+//            }
+//
+//        } else {
+//            //if permalogin not activated or if shared preferences not contains username and password
+//            //start login
+//            startLoginActivity();
+//        }
     }
 
     @Override
