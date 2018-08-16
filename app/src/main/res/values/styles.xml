@@ -10,7 +10,7 @@
 
     <!-- The SplashScreen theme. It sets the main window background drawable -->
     <style name="SplashTheme">
-        <item name="android:windowBackground">@drawable/firewatch_splash</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
         <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
         <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
     </style>
