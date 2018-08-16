@@ -17,7 +17,7 @@
 
     <!-- The DEFAULT theme. It sets the main window background drawable -->
     <style name="DefaultTheme">
-        <item name="android:windowBackground">@drawable/firewatch_forest_minimalistic</item>
+        <item name="android:windowBackground">@drawable/firewatch_background</item>
         <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
         <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
     </style>
