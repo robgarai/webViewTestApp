@@ -17,10 +17,11 @@
         <!--Splash screen-->
         <activity
             android:name=".activities.SplashScreen"
-            android:label="@string/app_name">
+            android:label="@string/splash"
+            android:screenOrientation="portrait"
+        >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,8 +29,10 @@
         <!--Main login with WebView activity-->
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name">
-            
+            android:label="@string/webview"
+            android:screenOrientation="portrait"
+            >
+
         </activity>
 
 

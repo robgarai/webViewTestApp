@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WebViewTestApp</string>
+    <string name="app_name">Web View Test App</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -13,4 +13,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="splash">Splash</string>
+    <string name="webview">Web View</string>
 </resources>
