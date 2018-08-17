@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,6 +39,7 @@ import com.example.rober.webviewtestapp.R;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +48,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static android.content.ContentValues.TAG;
 
 /**
  * A login screen that offers login via email/password.
@@ -129,8 +132,59 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //FileInputStream fIn = openFileInput ( "settings.dat" ) ;
                 //InputStreamReader isr = new InputStreamReader ( fIn ) ;
                 //BufferedReader buffreader = new BufferedReader ( isr ) ;
+                try {
 
-                InputStream inputStream = getResources().openRawResource(R.raw.earth_shadow_base64);
+                    InputStream inputStream = getResources().openRawResource(R.raw.earth_shadow_base64);
+                    InputStreamReader inputStreamReader = new InputStreamReader (inputStream) ;
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                    final StringBuilder stringBuilder = new StringBuilder();
+
+
+
+
+                    try {
+                        String line = null;
+                        while (( line = bufferedReader.readLine()) != null){
+                            stringBuilder.append(line);
+                        }
+                    }
+                    finally {
+                        bufferedReader.close();
+                    }
+                    inputStream.close();
+                    myTextView.setText(stringBuilder.toString());
+                }
+
+
+                catch (FileNotFoundException ex) {
+                    Log.e(TAG, "Couldn't find the file " +  " " + ex);
+                    ex.printStackTrace();                }
+
+                catch (IOException ex){
+                    Log.e(TAG, "Error reading file " + " " + ex);
+                    ex.printStackTrace();                }
+
+/*
+                boolean done = false;
+
+                while (!done) {
+                    final String line = bufferedReader.readLine();
+                    done = (line == null);
+
+                    if (line != null) {
+                        stringBuilder.append(line);
+                    }
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+
+                stringBuilder.toString();
+*/
+
+
+/*
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
                 int i;
@@ -147,28 +201,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     e.printStackTrace();
                 }
                 myTextView.setText(byteArrayOutputStream.toString());
-
-
-                /*InputStreamReader isr = new InputStreamReader (is) ;
-                final BufferedReader br = new BufferedReader(isr);
-
-                final StringBuilder stringBuilder = new StringBuilder();
-
-                boolean done = false;
-
-                while (!done) {
-                    final String line = br.readLine();
-                    done = (line == null);
-
-                    if (line != null) {
-                        stringBuilder.append(line);
-                    }
-                }
-
-                br.close();
-                is.close();
-
-                stringBuilder.toString();
 */
 
 
