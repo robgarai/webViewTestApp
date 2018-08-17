@@ -15,4 +15,6 @@
     </string>
     <string name="splash">Splash</string>
     <string name="webview">Web View</string>
+    <string name="action_show_image">Show Image</string>
+
 </resources>
