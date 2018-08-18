@@ -18,15 +18,15 @@ import static android.content.ContentValues.TAG;
 
 public class FileManager extends AppCompatActivity {
 
-    public String readStringFromResource(int resourceID) {
+    public static String readStringFromResource(Context ctx, int resourceID) {
         StringBuilder stringBuilder = new StringBuilder();
         //String sep = System.getProperty("line.separator");
 
         try {
             //InputStream inputStream = ctx.getResources().openRawResource(R.raw.earth_shadow_base64);
-            InputStream inputStream = getResources().openRawResource(resourceID);
-            InputStreamReader inputStreamReader = new InputStreamReader (inputStream) ;
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader, 1024*8);
+            final InputStream inputStream = ctx.getResources().openRawResource(resourceID);
+            final InputStreamReader inputStreamReader = new InputStreamReader (inputStream) ;
+            final BufferedReader bufferedReader = new BufferedReader(inputStreamReader, 1024*8);
 
             try {
                 String line = null;
@@ -38,7 +38,7 @@ public class FileManager extends AppCompatActivity {
             finally {
                 bufferedReader.close();
             }
-            inputStream.close();
+            //inputStream.close();
             //myTextView.setText(stringBuilder.toString());
         }
         catch (FileNotFoundException ex) {
