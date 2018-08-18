@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/activityLoginCoordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -44,7 +52,10 @@
                     android:hint="@string/prompt_login"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    style="@style/TextFileds"
+                    android:autofillHints="kuko"
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -62,7 +73,8 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    style="@style/TextFileds"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -73,10 +85,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_download"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
             <ImageView
                 android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <Button
+                android:id="@+id/btnPostRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="@string/action_post_request"
+                />
+
+            <ImageView
+                android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -92,14 +122,6 @@
                 android:text="@string/action_show_my_image"
                 />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:src="@mipmap/ic_launcher_round" />
-
             <TextView
                 android:id="@+id/textViewPicture"
                 android:layout_gravity="center"
@@ -108,7 +130,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="TextView" />
+                android:text="TextView"
+                />
 
 
         </LinearLayout>
@@ -117,3 +140,4 @@
     </ScrollView>
 
 </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

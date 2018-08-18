@@ -37,10 +37,13 @@ import android.widget.TextView;
 import com.example.rober.webviewtestapp.R;
 import com.example.rober.webviewtestapp.tools.FileManager;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -107,13 +110,54 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 doWhatIWantAndDeleteMeAfterUnnecessary();
 
                 //origos metoda na prihlasovanie treba spravit nieco vlastne
-                //attemptLogin();
+                attemptLogin();
             }
         });
+
+        //testovaci button na post request potom to presun do metody alebo triedy a pod spravny onclicklistener
+        Button postButton = findViewById(R.id.btnPostRequest);
+        postButton.setOnClickListener(new OnClickListener() {
+
+              @Override
+              public void onClick(View arg0) {
+                  String login = mLoginView.getText().toString();
+                  String pass = mPasswordView.getText().toString();
+                  try {
+
+                      if (login.length() == 0) {
+                          login = "mitosinka";
+                      }
+                      if (pass.length() == 0) {
+                          pass = "milan";
+                      }
+                  }
+                  finally {
+                      String finalText = "login: " + login + "\n" + "pass: " + pass ;
+
+                      final Snackbar mySnackbar = Snackbar.make(findViewById(R.id.activityLoginCoordinatorLayout), finalText, Snackbar.LENGTH_LONG);
+                      // set action button color
+                      mySnackbar.setActionTextColor(getResources().getColor(R.color.red));
+                      View sbView = mySnackbar.getView();
+                      sbView.setBackgroundColor(getResources().getColor(R.color.grassGreen));
+                     // TextView textView = (TextView) sbView.findViewById(R.id.activityLoginCoordinatorLayout);
+                      //textView.setTextColor(getResources().getColor(R.color.oceanBlue));
+
+                      mySnackbar.setAction("OK", new View.OnClickListener() {
+                                  @Override
+                                  public void onClick(View view) {
+                                      mySnackbar.dismiss();
+                                  }
+                              });
+                      mySnackbar.show();
+                  }
+              }
+          });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+
+
 
     //toto cele zmaz ked to nebude potrebne
     private void addListenerOnButton() {

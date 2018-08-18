@@ -31,6 +31,13 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <!--Text Fields style-->
+    <style name="TextFileds">
+        <item name="android:textColor">@color/blueGreen</item>
+        <item name="android:textColorHint">@color/grassGreen</item>
+        <item name="android:textColorHighlight">@color/green</item>
+    </style>
+
     <!-- The DEFAULT theme. It sets the main window background drawable -->
     <style name="DefaultTheme">
         <item name="android:windowBackground">@drawable/firewatch_background</item>

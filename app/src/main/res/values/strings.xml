@@ -15,7 +15,8 @@
     <!--App related information-->
     <string name="splash">Splash</string>
     <string name="webview">Web View</string>
-    <string name="action_show_my_image">add text</string>
+    <string name="action_show_my_image">add text to text field</string>
     <string name="background">This should show a background image</string>
+    <string name="action_post_request">POST request</string>
 
 </resources>

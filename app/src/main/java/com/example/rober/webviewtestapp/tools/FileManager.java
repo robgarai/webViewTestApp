@@ -32,8 +32,8 @@ public class FileManager extends AppCompatActivity {
             }
             finally {
                 bufferedReader.close();
+                inputStream.close();
             }
-            inputStream.close();
         }
         catch (FileNotFoundException ex) {
             Log.e(TAG, "Couldn't find the file " + resourceID  + " " + ex);
