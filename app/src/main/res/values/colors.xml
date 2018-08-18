@@ -13,4 +13,10 @@
     <color name="greenFAB">#3fff3f</color>
     <color name="lime">#CDDC39</color>
 
+    <!--custom colors similar to background-->
+    <color name="yellow">#f7f299</color>
+    <color name="grassGreen">#a2de83</color>
+    <color name="darkGreen">#4fa170</color>
+    <color name="blueGreen">#38827c</color>
+    <color name="oceanBlue">#346473</color>
 </resources>

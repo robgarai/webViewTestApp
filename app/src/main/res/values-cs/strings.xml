@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Web View Testovací Aplikace</string>
+
+    <string name="prompt_login">Přihlašovací jméno</string>
+    <string name="prompt_password">Heslo</string>
+    <string name="action_download">Stáhnout</string>
+
+    <string name="action_sign_in_short">Přihlásit</string>
+    <string name="error_invalid_email">Neplatné přihlašovací jméno</string>
+    <string name="error_invalid_password">Toto heslo je příliš krátké</string>
+    <string name="error_incorrect_password">Neplatné heslo</string>
+    <string name="error_field_required">Toto pole je povinné</string>
+    <string name="permission_rationale">"Povolení kontaktů je nutné k poskytnutí automatického doplňování e-mailů."</string>
+</resources>
