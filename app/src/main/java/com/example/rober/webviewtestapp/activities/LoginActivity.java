@@ -121,21 +121,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View arg0) {
 
-                //calling method for reading from the file - inside res/raw
-                String mBase64String = FileManager.readStringFromResource(LoginActivity.this, R.raw.earth_shadow_base64);
-                //splitting the super long base64 raw formatting, cutting first part which is unnecessary for decoding
-                String base64Image = mBase64String.split(",")[1];
-
-                //decoding byte 64
-                byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-                //resetting the images and text view
-                mImage1.setImageResource(R.drawable.earth_shadow);
-                mImage2.setImageBitmap(decodedByte);
-                myTextView.setText(base64Image);
+                doWhatIWantAndDeleteMeAfterUnnecessary();
             }
         });
+    }
+
+    private void doWhatIWantAndDeleteMeAfterUnnecessary() {
+        //calling method for reading from the file - inside res/raw
+        String mBase64String = FileManager.readStringFromResource(LoginActivity.this, R.raw.earth_shadow_base64);
+        //splitting the super long base64 raw formatting, cutting first part which is unnecessary for decoding
+        String base64Image = mBase64String.split(",")[1];
+
+        //decoding byte 64
+        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        //resetting the images and text view
+        mImage1.setImageResource(R.drawable.earth_shadow);
+        mImage2.setImageBitmap(decodedByte);
+        myTextView.setText(base64Image);
     }
 
     private void populateAutoComplete() {
