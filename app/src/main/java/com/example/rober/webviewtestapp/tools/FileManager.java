@@ -4,11 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.rober.webviewtestapp.R;
-
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +19,6 @@ public class FileManager extends AppCompatActivity {
         //String sep = System.getProperty("line.separator");
 
         try {
-            //InputStream inputStream = ctx.getResources().openRawResource(R.raw.earth_shadow_base64);
             final InputStream inputStream = ctx.getResources().openRawResource(resourceID);
             final InputStreamReader inputStreamReader = new InputStreamReader (inputStream) ;
             final BufferedReader bufferedReader = new BufferedReader(inputStreamReader, 1024*8);
@@ -38,8 +33,7 @@ public class FileManager extends AppCompatActivity {
             finally {
                 bufferedReader.close();
             }
-            //inputStream.close();
-            //myTextView.setText(stringBuilder.toString());
+            inputStream.close();
         }
         catch (FileNotFoundException ex) {
             Log.e(TAG, "Couldn't find the file " + resourceID  + " " + ex);
@@ -49,7 +43,6 @@ public class FileManager extends AppCompatActivity {
             Log.e(TAG, "Error reading file " + resourceID + " " + ex);
             return null;
         }
-
         return stringBuilder.toString();
     }
 }
