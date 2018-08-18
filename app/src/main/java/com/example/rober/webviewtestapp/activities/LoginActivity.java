@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -99,11 +100,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button mSignInDownloadButton = (Button) findViewById(R.id.sign_in_download_button);
+        mSignInDownloadButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                doWhatIWantAndDeleteMeAfterUnnecessary();
+
+                //origos metoda na prihlasovanie treba spravit nieco vlastne
+                //attemptLogin();
             }
         });
 
@@ -111,6 +115,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
     }
 
+    //toto cele zmaz ked to nebude potrebne
     private void addListenerOnButton() {
         mImage1 = (ImageView) findViewById(R.id.imageView1);
         mImage2 = (ImageView) findViewById(R.id.imageView2);
@@ -120,8 +125,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onClick(View arg0) {
+                String zTextovehoPola;
+                zTextovehoPola = mPasswordView.getText().toString();
+                Log.v("EditText", "zTextovehoPola: " + zTextovehoPola);
 
-                doWhatIWantAndDeleteMeAfterUnnecessary();
+                String finalText = zTextovehoPola + myTextView.getText().toString();
+
+                myTextView.setText(finalText);
+
+                StringBuilder strBuild = new StringBuilder(finalText);
+                String numbers = "123456789";
+                strBuild.insert(0, "Hello " + numbers);
+                myTextView.setText(strBuild);
+
+                int start = Math.max(myTextView.getSelectionStart(), 0);
+                int end = Math.max(myTextView.getSelectionEnd(),10);
+
+                Log.v("EditTextView", "start: " + start);
+                Log.v("EditTextView", "end: " + end);
             }
         });
     }
