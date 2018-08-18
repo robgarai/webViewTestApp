@@ -125,24 +125,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onClick(View arg0) {
-                String zTextovehoPola;
-                zTextovehoPola = mPasswordView.getText().toString();
-                Log.v("EditText", "zTextovehoPola: " + zTextovehoPola);
-
-                String finalText = zTextovehoPola + myTextView.getText().toString();
-
+                String login = mLoginView.getText().toString();
+                String pass = mPasswordView.getText().toString();
+                if (login.length() == 0) {
+                    login = "empty login";
+                }
+                if (pass.length() == 0) {
+                    pass = "empty password";
+                }
+                String finalText = "login: " + login + " \n " + "pass: " + pass + System.getProperty("line.separator") + myTextView.getText().toString();
                 myTextView.setText(finalText);
-
-                StringBuilder strBuild = new StringBuilder(finalText);
-                String numbers = "123456789";
-                strBuild.insert(0, "Hello " + numbers);
-                myTextView.setText(strBuild);
-
-                int start = Math.max(myTextView.getSelectionStart(), 0);
-                int end = Math.max(myTextView.getSelectionEnd(),10);
-
-                Log.v("EditTextView", "start: " + start);
-                Log.v("EditTextView", "end: " + end);
             }
         });
     }
