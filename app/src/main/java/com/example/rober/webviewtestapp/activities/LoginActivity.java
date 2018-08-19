@@ -24,8 +24,10 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -35,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rober.webviewtestapp.R;
+import com.example.rober.webviewtestapp.tools.CustomSnackbars;
 import com.example.rober.webviewtestapp.tools.FileManager;
 
 import java.io.FileNotFoundException;
@@ -133,22 +136,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                   }
                   finally {
                       String finalText = "login: " + login + "\n" + "pass: " + pass ;
+                      // hadze error skus poriesit potom
+                      // hadze error skus poriesit potom
+                      // hadze error skus poriesit potom
+                      //CustomSnackbars.getSnackbarDismissable(LoginActivity.this, R.id.activityLoginCoordinatorLayout, login, "OK");
 
-                      final Snackbar mySnackbar = Snackbar.make(findViewById(R.id.activityLoginCoordinatorLayout), finalText, Snackbar.LENGTH_LONG);
+                      final Snackbar customSnackbar = Snackbar.make(findViewById(R.id.activityLoginCoordinatorLayout), finalText, Snackbar.LENGTH_LONG);
                       // set action button color
-                      mySnackbar.setActionTextColor(getResources().getColor(R.color.grassGreen));
-                      View sbView = mySnackbar.getView();
+                      customSnackbar.setActionTextColor(getResources().getColor(R.color.grassGreen));
+                      // set background color
+                      View sbView = customSnackbar.getView();
                       sbView.setBackgroundColor(getResources().getColor(R.color.oceanBlue));
+                      // set info text color
                       TextView sbTextView = (TextView) sbView.findViewById(R.id.snackbar_text);
                       sbTextView.setTextColor(getResources().getColor(R.color.yellow));
 
-                      mySnackbar.setAction("OK", new View.OnClickListener() {
-                                  @Override
-                                  public void onClick(View view) {
-                                      mySnackbar.dismiss();
-                                  }
-                              });
-                      mySnackbar.show();
+                      customSnackbar.setAction("OK", new View.OnClickListener() {
+                          @Override
+                          public void onClick(View view) {
+                              customSnackbar.dismiss();
+                          }
+                      });
+                      customSnackbar.show();
                   }
               }
           });
