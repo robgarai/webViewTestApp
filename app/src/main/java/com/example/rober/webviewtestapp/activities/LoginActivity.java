@@ -136,11 +136,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                       final Snackbar mySnackbar = Snackbar.make(findViewById(R.id.activityLoginCoordinatorLayout), finalText, Snackbar.LENGTH_LONG);
                       // set action button color
-                      mySnackbar.setActionTextColor(getResources().getColor(R.color.red));
+                      mySnackbar.setActionTextColor(getResources().getColor(R.color.grassGreen));
                       View sbView = mySnackbar.getView();
-                      sbView.setBackgroundColor(getResources().getColor(R.color.grassGreen));
-                     // TextView textView = (TextView) sbView.findViewById(R.id.activityLoginCoordinatorLayout);
-                      //textView.setTextColor(getResources().getColor(R.color.oceanBlue));
+                      sbView.setBackgroundColor(getResources().getColor(R.color.oceanBlue));
+                      TextView sbTextView = (TextView) sbView.findViewById(R.id.snackbar_text);
+                      sbTextView.setTextColor(getResources().getColor(R.color.yellow));
 
                       mySnackbar.setAction("OK", new View.OnClickListener() {
                                   @Override
