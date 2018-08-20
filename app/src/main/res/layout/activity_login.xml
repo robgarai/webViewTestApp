@@ -54,7 +54,6 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     style="@style/TextFileds"
-                    android:autofillHints="kuko"
                     />
 
             </android.support.design.widget.TextInputLayout>
@@ -74,18 +73,19 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true"
-                    style="@style/TextFileds"/>
+                    style="@style/TextFileds"
+
+                    />
 
             </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:id="@+id/sign_in_download_button"
-                style="?android:textAppearanceSmall"
+                style="@style/BorderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_download"
-                android:textStyle="bold"
                 />
 
             <ImageView
@@ -98,7 +98,8 @@
 
             <Button
                 android:id="@+id/btnPostRequest"
-                android:layout_width="wrap_content"
+                style="@style/BorderlessButtonStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
@@ -115,7 +116,8 @@
 
             <Button
                 android:id="@+id/btnChangeImage"
-                android:layout_width="wrap_content"
+                style="@style/BorderlessButtonStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"

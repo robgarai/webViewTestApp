@@ -8,4 +8,11 @@
         <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
         <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
     </style>
+
+    <!--Text Fields style-->
+    <style name="TextFileds">
+        <item name="android:textColor">@color/edit_text_color_selector</item>
+        <item name="android:backgroundTint">@color/colorSecondaryDarker</item>
+
+    </style>
 </resources>

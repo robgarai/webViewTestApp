@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                       customSnackbar.setActionTextColor(getResources().getColor(R.color.grassGreen));
                       // set background color
                       View sbView = customSnackbar.getView();
-                      sbView.setBackgroundColor(getResources().getColor(R.color.oceanBlue));
+                      sbView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                       // set info text color
                       TextView sbTextView = (TextView) sbView.findViewById(R.id.snackbar_text);
                       sbTextView.setTextColor(getResources().getColor(R.color.yellow));

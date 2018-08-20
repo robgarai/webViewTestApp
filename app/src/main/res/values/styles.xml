@@ -2,10 +2,14 @@
     <!-- Customize your theme here. -->
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorSecondary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@drawable/firewatch_background</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="android:textColorHint">@color/colorSecondaryDarker</item>
+
+
+
     </style>
 
     <!--my customized action bar style-->
@@ -33,9 +37,16 @@
 
     <!--Text Fields style-->
     <style name="TextFileds">
-        <item name="android:textColor">@color/blueGreen</item>
-        <item name="android:textColorHint">@color/grassGreen</item>
-        <item name="android:textColorHighlight">@color/green</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <!--Button text style, shape, color-->
+    <style name="BorderlessButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@drawable/button_shape</item>
+
     </style>
 
     <!-- The DEFAULT theme. It sets the main window background drawable -->

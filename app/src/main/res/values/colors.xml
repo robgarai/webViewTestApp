@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#C7E58F</color>
-    <color name="colorPrimaryDark">#4fa170</color>
-    <color name="colorAccent">#346473</color>
-
-    <color name="white">#ffffff</color>
-
-
-    <color name="black">#000000</color>
-    <color name="red">#F44336</color>
-    <color name="grey">#0a3f51b5</color>
-    <color name="green">#00ff00</color>
-    <color name="greenFAB">#3fff3f</color>
-    <color name="lime">#CDDC39</color>
-
-    <!--custom colors similar to background-->
     <color name="yellow">#f7f299</color>
     <color name="grassGreen">#a2de83</color>
-    <color name="darkGreen">#4fa170</color>
-    <color name="blueGreen">#38827c</color>
-    <color name="oceanBlue">#346473</color>
+    <color name="colorPrimary">#C7E58F</color>
+    <color name="colorPrimaryDarker">#a9c27a</color>
+    <color name="colorSecondary">#4fa170</color>
+    <color name="colorSecondaryDarker">#38827c</color>
+    <color name="colorAccent">#346473</color>
+
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="greyTransparent">#0a3f51b5</color>
+    <color name="red">#ff0000</color>
+    <color name="green">#00ff00</color>
+    <color name="blue">#0000ff</color>
+
+    <color name="transparent">#00000000</color>
 </resources>
