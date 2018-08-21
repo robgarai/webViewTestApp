@@ -40,6 +40,8 @@ import com.example.rober.webviewtestapp.R;
 import com.example.rober.webviewtestapp.tools.CustomSnackbars;
 import com.example.rober.webviewtestapp.tools.FileManager;
 
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -135,7 +137,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                   } catch (MalformedURLException e) {
                       e.printStackTrace();
                   }
-                  HttpURLConnection client = null;
+                  HttpURLConnection connection = null;
 
                   try {
 
@@ -146,7 +148,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                           pass = "milan";
                       }
 
-                      client = (HttpURLConnection) url.openConnection();
+                      connection = (HttpURLConnection) url.openConnection();
+                      connection.setRequestMethod("POST");
+                      connection.setRequestProperty("Key","username");
+                      DataOutputStream outputPost = new DataOutputStream(new BufferedOutputStream(connection.getOutputStream()));
+                      //outputPost.write(login.getBytes());
+
+                      writeStream(outputPost);
+
+                      outputPost.close();
+                      connection.setFixedLengthStreamingMode(outputPost.getBytes().length);
+
+
+                      connection.setDoOutput(true);
                   } catch (IOException e) {
                       e.printStackTrace();
 
@@ -154,6 +168,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                       String finalText = "login: " + login + " " + "pass: " + pass  + "\n" + "trying to get post requet" ;
                       //calling my custom snackbar
                       CustomSnackbars.getSnackbarDismissable(LoginActivity.this, findViewById(R.id.activityLoginCoordinatorLayout), finalText, "OK");
+
+                      if(connection != null) // Make sure the connection is not null.
+                          connection.disconnect();
                   }
               }
           });
@@ -162,7 +179,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
     }
 
+    private void writeStream(DataOutputStream out) throws IOException {
+        String output = "Hello world";
 
+        out.write(output.getBytes());
+        out.flush();
+    }
 
     //toto cele zmaz ked to nebude potrebne
     private void addListenerOnButton() {
