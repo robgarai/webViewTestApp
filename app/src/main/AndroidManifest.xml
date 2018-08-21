@@ -21,6 +21,7 @@
         <!--Splash screen-->
         <activity
             android:name=".activities.SplashScreen"
+            android:theme="@style/SplashTheme"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             >

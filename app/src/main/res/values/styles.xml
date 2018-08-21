@@ -28,8 +28,6 @@
         <item name="android:windowBackground">@drawable/firewatch_splash</item>
     </style>
 
-
-
     <!--Text Fields style-->
     <style name="TextFileds">
         <item name="android:textColor">@color/colorAccent</item>
