@@ -42,6 +42,9 @@ import com.example.rober.webviewtestapp.tools.FileManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,6 +128,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
               public void onClick(View arg0) {
                   String login = mLoginView.getText().toString();
                   String pass = mPasswordView.getText().toString();
+
+                  URL url = null;
+                  try {
+                      url = new URL("https://mobility.cleverlance.com/download/bootcamp/image.php");
+                  } catch (MalformedURLException e) {
+                      e.printStackTrace();
+                  }
+                  HttpURLConnection client = null;
+
                   try {
 
                       if (login.length() == 0) {
@@ -133,9 +145,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                       if (pass.length() == 0) {
                           pass = "milan";
                       }
-                  }
-                  finally {
-                      String finalText = "login: " + login + "\n" + "pass: " + pass ;
+
+                      client = (HttpURLConnection) url.openConnection();
+                  } catch (IOException e) {
+                      e.printStackTrace();
+
+                  } finally {
+                      String finalText = "login: " + login + " " + "pass: " + pass  + "\n" + "trying to get post requet" ;
                       //calling my custom snackbar
                       CustomSnackbars.getSnackbarDismissable(LoginActivity.this, findViewById(R.id.activityLoginCoordinatorLayout), finalText, "OK");
                   }
