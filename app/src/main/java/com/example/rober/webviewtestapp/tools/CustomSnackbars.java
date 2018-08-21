@@ -10,11 +10,9 @@ import android.widget.TextView;
 import com.example.rober.webviewtestapp.R;
 
 public class CustomSnackbars extends AppCompatActivity {
-//ten viewgroup proste nechce fungovat proste potrebujem aby fungovala funkcia findViewById(R.id.activityLoginCoordinatorLayout)
-//ten viewgroup proste nechce fungovat proste potrebujem aby fungovala funkcia findViewById(R.id.activityLoginCoordinatorLayout)
-//ten viewgroup proste nechce fungovat proste potrebujem aby fungovala funkcia findViewById(R.id.activityLoginCoordinatorLayout)
-    public static void getSnackbarDismissable(Context ctx, ViewGroup rootLayout, String strInfo, String strBtn) {
-        final Snackbar customSnackbar = Snackbar.make(rootLayout, strInfo, Snackbar.LENGTH_LONG);
+
+    public static void getSnackbarDismissable(Context ctx, View view, String strInfo, String strBtn) {
+        final Snackbar customSnackbar = Snackbar.make(view, strInfo, Snackbar.LENGTH_LONG);
         // set action button color
         customSnackbar.setActionTextColor(ctx.getResources().getColor(R.color.grassGreen));
         // set background color

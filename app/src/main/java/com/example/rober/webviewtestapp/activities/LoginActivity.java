@@ -136,28 +136,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                   }
                   finally {
                       String finalText = "login: " + login + "\n" + "pass: " + pass ;
-                      // hadze error skus poriesit potom
-                      // hadze error skus poriesit potom
-                      // hadze error skus poriesit potom
-                      //CustomSnackbars.getSnackbarDismissable(LoginActivity.this, R.id.activityLoginCoordinatorLayout, login, "OK");
-
-                      final Snackbar customSnackbar = Snackbar.make(findViewById(R.id.activityLoginCoordinatorLayout), finalText, Snackbar.LENGTH_LONG);
-                      // set action button color
-                      customSnackbar.setActionTextColor(getResources().getColor(R.color.grassGreen));
-                      // set background color
-                      View sbView = customSnackbar.getView();
-                      sbView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                      // set info text color
-                      TextView sbTextView = (TextView) sbView.findViewById(R.id.snackbar_text);
-                      sbTextView.setTextColor(getResources().getColor(R.color.yellow));
-
-                      customSnackbar.setAction("OK", new View.OnClickListener() {
-                          @Override
-                          public void onClick(View view) {
-                              customSnackbar.dismiss();
-                          }
-                      });
-                      customSnackbar.show();
+                      //calling my custom snackbar
+                      CustomSnackbars.getSnackbarDismissable(LoginActivity.this, findViewById(R.id.activityLoginCoordinatorLayout), finalText, "OK");
                   }
               }
           });
