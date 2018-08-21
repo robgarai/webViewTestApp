@@ -37,13 +37,16 @@ import android.widget.TextView;
 import com.example.rober.webviewtestapp.R;
 import com.example.rober.webviewtestapp.tools.CustomSnackbars;
 import com.example.rober.webviewtestapp.tools.FileManager;
+import com.example.rober.webviewtestapp.tools.HashTool;
 
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,17 +83,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private Button mButton;
     private ImageView mImage1, mImage2;
     private TextView myTextView;
-    private SharedPreferences appSettings;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //DELETE IN FINAL APP - NOT ASKED BY CLIENT toto je redundantne textove pole ktorym testujem ci viem zapisovat do textoveho pola ci uz pridavat nejaky text po sltaceni tlacitka alebo premenit ho za base64 text string obrazku
         myTextView = (TextView) findViewById(R.id.textViewPicture);
         myTextView.setText("This text will be changed into base64 image source text");
 
+        //DELETE IN FINAL APP - NOT ASKED BY CLIENT listener pre tlacitko ktore zmazem ked nebude potrebne
         addListenerOnButton();
 
         // Set up the login form.
@@ -109,18 +112,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        //sing in button used for POST request and download the base64 image
         Button mSignInDownloadButton = (Button) findViewById(R.id.sign_in_download_button);
         mSignInDownloadButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 doWhatIWantAndDeleteMeAfterUnnecessary();
 
-                //origos metoda na prihlasovanie treba spravit nieco vlastne
+                //origos metoda na prihlasovanie treba spravit nieco vlastne maybe DELETE IN FINAL APP - NOT ASKED BY CLIENT
                 attemptLogin();
             }
         });
 
-        //testovaci button na post request potom to presun do metody alebo triedy a pod spravny onclicklistener
+        //MOVE INTO onClick method IN FINAL APP - ASKED BY CLIENT testovaci button na post request potom to presun do metody alebo triedy a pod spravny onclicklistener
         Button postButton = findViewById(R.id.btnPostRequest);
         postButton.setOnClickListener(new OnClickListener() {
 
@@ -146,6 +150,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                           pass = "milan";
                       }
 
+                      //calling getter for parsing the password into SHA1 hash
+                      try {
+                          pass = (String) HashTool.getSHA1Hash(pass);
+                      } catch (NoSuchAlgorithmException e) {
+                          e.printStackTrace();
+                      } catch (UnsupportedEncodingException e) {
+                          e.printStackTrace();
+                      }
+
                       connection = (HttpURLConnection) url.openConnection();
                       connection.setRequestMethod("POST");
                       connection.setRequestProperty("Key","username");
@@ -153,7 +166,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                       //outputPost.write(login.getBytes());
                       outputPost.writeBytes("adasfdawf");
                       double bla = outputPost.size();
-                      Log.i("outputPost", "length of my outputPost is: " + bla);
+                      Log.i("outputPost", "length of my outputPost is: " + outputPost);
 
                       writeStream(outputPost);
 
@@ -179,7 +192,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
     }
 
-
+    //method used for post request - ked budes vediet na co je to potrebne tak to viacej okomentuj
     private void writeStream(DataOutputStream out) throws IOException {
         String output = "Hello world";
 
@@ -187,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         out.flush();
     }
 
-    //toto cele zmaz ked to nebude potrebne
+    //toto cele zmaz ked to nebude potrebne - button treti v poradi
     private void addListenerOnButton() {
         mImage1 = (ImageView) findViewById(R.id.imageView1);
         mImage2 = (ImageView) findViewById(R.id.imageView2);
@@ -200,17 +213,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 String login = mLoginView.getText().toString();
                 String pass = mPasswordView.getText().toString();
                 if (login.length() == 0) {
-                    login = "empty login";
+                    login = "mitosinka";
                 }
                 if (pass.length() == 0) {
-                    pass = "empty password";
+                    pass = "milan";
                 }
+
+                //calling getter for parsing the password into SHA1 hash
+                try {
+                    pass = (String) HashTool.getSHA1Hash(pass);
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
                 String finalText = "login: " + login + " \n " + "pass: " + pass + System.getProperty("line.separator") + myTextView.getText().toString();
                 myTextView.setText(finalText);
             }
         });
     }
 
+    //DELETE IN FINAL APP - NOT ASKED BY CLIENT metoda ktora mi nacita nejaky subor co mam v adresari RES/RAW a preparsuje ho do base64 formatu, nasledne vypise text do textoveho pola
     private void doWhatIWantAndDeleteMeAfterUnnecessary() {
         //calling method for reading from the file - inside res/raw
         String mBase64String = FileManager.readStringFromResource(LoginActivity.this, R.raw.earth_shadow_base64);
@@ -226,6 +250,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mImage2.setImageBitmap(decodedByte);
         myTextView.setText(base64Image);
     }
+
+
+
+    /*DELETE IN FINAL APP - clean it - NOT ASKED BY CLIENT*/
+
+
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {

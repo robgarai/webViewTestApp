@@ -36,8 +36,8 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/webview"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
-
 
         </activity>
 
