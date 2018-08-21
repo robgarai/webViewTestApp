@@ -44,6 +44,7 @@ import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -153,12 +154,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                       connection.setRequestProperty("Key","username");
                       DataOutputStream outputPost = new DataOutputStream(new BufferedOutputStream(connection.getOutputStream()));
                       //outputPost.write(login.getBytes());
+                      outputPost.writeBytes("adasfdawf");
+                      double bla = outputPost.size();
+                      Log.i("outputPost", "length of my outputPost is: " + bla);
 
                       writeStream(outputPost);
 
+                      //connection.setFixedLengthStreamingMode(outputPost.getBytes().length);
                       outputPost.close();
-                      connection.setFixedLengthStreamingMode(outputPost.getBytes().length);
-
 
                       connection.setDoOutput(true);
                   } catch (IOException e) {
