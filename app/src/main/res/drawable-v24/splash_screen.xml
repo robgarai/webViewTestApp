@@ -7,11 +7,9 @@
 
     <item>
         <bitmap
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:src="@drawable/firewatch_splash" />
+
     </item>
 
 
