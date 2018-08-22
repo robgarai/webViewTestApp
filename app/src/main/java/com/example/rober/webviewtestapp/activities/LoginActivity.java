@@ -150,14 +150,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                   } catch (UnsupportedEncodingException e) {
                       e.printStackTrace();
                   }
-
+                  login= "username="+login;
                   //calling method for post request
-                  String acceptedBase64ImageStr = executeLink("https://mobility.cleverlance.com/download/bootcamp/image.php",);
+                  String acceptedBase64ImageStr = null;
+                  try {
+                      acceptedBase64ImageStr = executeLink("https://mobility.cleverlance.com/download/bootcamp/image.php", pass, login);
+                  } catch (Exception e) {
+                      e.printStackTrace();
+                  }
                   Log.i("PostRequest", "11 message from server \n" + acceptedBase64ImageStr);
                   myTextView.setText(acceptedBase64ImageStr);
 
                   //calling my custom snackbar
-                  String finalText = "login: " + login + " " + "pass: " + pass  + "\n" + "trying to get post requet" ;
+                  String finalText = "trying to get post requet" + "login: " + login + " " + "pass: " + pass  + "\n" ;
                   CustomSnackbars.getSnackbarDismissable(LoginActivity.this, findViewById(R.id.activityLoginCoordinatorLayout), finalText, "OK");
               }
           });
@@ -167,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     //method used for post request
-    private String executeLink(String link, String urlParameters) throws Exception{
+    private String executeLink(String link, String pass, String urlParameters) throws Exception{
 
         String response = null;
         try {
@@ -189,7 +194,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             connection.setRequestProperty("charset", "utf-8");
-            connection.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+            connection.addRequestProperty("Authorization", pass);
+            //connection.setRequestProperty("Content-Length", Integer.toString(postDataLength));
             connection.setFixedLengthStreamingMode(postDataLength);
             connection.setUseCaches(false);
 
