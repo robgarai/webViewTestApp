@@ -133,59 +133,32 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
               public void onClick(View arg0) {
                   String login = mLoginView.getText().toString();
                   String pass = mPasswordView.getText().toString();
-
-                  URL url = null;
+                  
+                  //i am just lazy to write the text into fields repeatably :D lol
+                  if (login.length() == 0) {
+                      login = "mitosinka";
+                  }
+                  if (pass.length() == 0) {
+                      pass = "milan";
+                  }
+                  
+                  //calling getter for parsing the password into SHA1 hash
                   try {
-                      url = new URL("https://mobility.cleverlance.com/download/bootcamp/image.php");
-                  } catch (MalformedURLException e) {
+                      pass = (String) HashTool.getSHA1Hash(pass);
+                  } catch (NoSuchAlgorithmException e) {
+                      e.printStackTrace();
+                  } catch (UnsupportedEncodingException e) {
                       e.printStackTrace();
                   }
-                  HttpURLConnection connection = null;
 
-                  try {
+                  //calling method for post request
+                  String acceptedBase64ImageStr = executeLink("https://mobility.cleverlance.com/download/bootcamp/image.php",);
+                  Log.i("PostRequest", "11 message from server \n" + acceptedBase64ImageStr);
+                  myTextView.setText(acceptedBase64ImageStr);
 
-                      if (login.length() == 0) {
-                          login = "mitosinka";
-                      }
-                      if (pass.length() == 0) {
-                          pass = "milan";
-                      }
-
-                      //calling getter for parsing the password into SHA1 hash
-                      try {
-                          pass = (String) HashTool.getSHA1Hash(pass);
-                      } catch (NoSuchAlgorithmException e) {
-                          e.printStackTrace();
-                      } catch (UnsupportedEncodingException e) {
-                          e.printStackTrace();
-                      }
-
-                      connection = (HttpURLConnection) url.openConnection();
-                      connection.setRequestMethod("POST");
-                      connection.setRequestProperty("Key","username");
-                      DataOutputStream outputPost = new DataOutputStream(new BufferedOutputStream(connection.getOutputStream()));
-                      //outputPost.write(login.getBytes());
-                      outputPost.writeBytes("adasfdawf");
-                      double bla = outputPost.size();
-                      Log.i("outputPost", "length of my outputPost is: " + outputPost);
-
-                      writeStream(outputPost);
-
-                      //connection.setFixedLengthStreamingMode(outputPost.getBytes().length);
-                      outputPost.close();
-
-                      connection.setDoOutput(true);
-                  } catch (IOException e) {
-                      e.printStackTrace();
-
-                  } finally {
-                      String finalText = "login: " + login + " " + "pass: " + pass  + "\n" + "trying to get post requet" ;
-                      //calling my custom snackbar
-                      CustomSnackbars.getSnackbarDismissable(LoginActivity.this, findViewById(R.id.activityLoginCoordinatorLayout), finalText, "OK");
-
-                      if(connection != null) // Make sure the connection is not null.
-                          connection.disconnect();
-                  }
+                  //calling my custom snackbar
+                  String finalText = "login: " + login + " " + "pass: " + pass  + "\n" + "trying to get post requet" ;
+                  CustomSnackbars.getSnackbarDismissable(LoginActivity.this, findViewById(R.id.activityLoginCoordinatorLayout), finalText, "OK");
               }
           });
 
@@ -193,14 +166,68 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
     }
 
+    //method used for post request
+    private String executeLink(String link, String urlParameters) throws Exception{
 
+        String response = null;
+        try {
 
-    //method used for post request - ked budes vediet na co je to potrebne tak to viacej okomentuj
-    private void writeStream(DataOutputStream out) throws IOException {
-        String output = "Hello world";
+            byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+            int postDataLength = postData.length;
+            Log.i("PostRequest", "01 PostData > " + postData);
+            Log.i("PostRequest", "02 PostDataLength > " + postDataLength);
+            URL url = null;
+            try {
+                url = new URL(link);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            Log.i("PostRequest", "03 setting connection");
+            connection.setDoOutput(true);
+            connection.setInstanceFollowRedirects(false);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestProperty("charset", "utf-8");
+            connection.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+            connection.setFixedLengthStreamingMode(postDataLength);
+            connection.setUseCaches(false);
 
-        out.write(output.getBytes());
-        out.flush();
+            Log.i("PostRequest", "04 inserting data into outputStream");
+            DataOutputStream outStream = new DataOutputStream(connection.getOutputStream());
+            outStream.write(postData);
+
+            Log.i("PostRequest", "05 creating connection");
+            connection.connect();
+
+            Log.i("PostRequest", "06 checking connection status");
+            if (connection.getResponseCode() == 200) {
+                Log.i("PostRequest", "07.1 connection OK");
+                Log.i("PostRequest", "08 flushing outputStream");
+                outStream.flush();
+                Log.i("PostRequest", "09 closing outputStream");
+                outStream.close();
+                CustomSnackbars.getSnackbarDismissable(LoginActivity.this, findViewById(R.id.activityLoginCoordinatorLayout), "POST request sent", "OK");
+
+            } else if (connection.getResponseCode() == -1) {
+                Log.i("PostRequest", "07.2 the response is not valid HTTP");
+                CustomSnackbars.getSnackbarDismissable(LoginActivity.this, findViewById(R.id.activityLoginCoordinatorLayout), "the response is not valid HTTP", "OK");
+
+            } else {
+                Log.i("PostRequest", "07.3 connection Unauthorized");
+                CustomSnackbars.getSnackbarDismissable(LoginActivity.this, findViewById(R.id.activityLoginCoordinatorLayout), "connection rejected", "OK");
+            }
+
+            if(connection != null) { // Make sure the connection is not null.
+                Log.i("PostRequest", "10 disconnectinG");
+                connection.disconnect();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return response;
     }
 
     //toto cele zmaz ked to nebude potrebne - button treti v poradi
