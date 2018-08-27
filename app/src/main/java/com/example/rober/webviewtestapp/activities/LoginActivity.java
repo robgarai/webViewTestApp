@@ -179,7 +179,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
             int postDataLength = postData.length;
-            Log.i("PostRequest", "01 PostData > " + postData);
+            Log.i("PostRequest", "01 PostData > " + postData.toString());
             Log.i("PostRequest", "02 PostDataLength > " + postDataLength);
             URL url = null;
             try {
